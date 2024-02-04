@@ -27,6 +27,20 @@ func (l *List) Add(task string) {
 	*l = append(*l, t)
 }
 
+func (l *List) Complete(i int) error {
+	index := i
+	ls := *l
+
+	if index < 0 || index > len(ls) {
+		return fmt.Errorf("unvalid item %d", i)
+	}
+
+	ls[index].CompletedAt = time.Now()
+	ls[index].Done = true
+
+	return nil
+}
+
 func (l *List) Delete(i int) error {
 	if i < 1 || i > len(*l) {
 		return fmt.Errorf("unvalid item %d", i)
