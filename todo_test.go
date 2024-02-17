@@ -30,7 +30,7 @@ func TestComplete(t *testing.T) {
 		t.Errorf("New Task should not be completed")
 
 	}
-	l.Complete(0)
+	l.Complete(1)
 	if !l[0].Done {
 		t.Errorf("New Task should be completed")
 	}
@@ -56,4 +56,8 @@ func TestDelete(t *testing.T) {
 	if l[1].Task != taskNames[2] {
 		t.Errorf("expected %v got %v in delete", taskNames[2], l[1].Task)
 	}
+}
+
+func TestSave(t *tesing.T) {
+
 }
