@@ -28,7 +28,7 @@ func (l *List) Add(task string) {
 }
 
 func (l *List) Complete(i int) error {
-	index := i
+	index := i - 1
 	ls := *l
 
 	if index < 0 || index > len(ls) {
@@ -76,3 +76,4 @@ func (l *List) Get(filename string) error {
 
 	return json.Unmarshal(file, l)
 }
+
