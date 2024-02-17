@@ -1,6 +1,7 @@
 package todo_test
 
 import (
+	"os"
 	"testing"
 
 	"github.com/Iyed-M/todo-list"
@@ -58,6 +59,26 @@ func TestDelete(t *testing.T) {
 	}
 }
 
-func TestSave(t *tesing.T) {
+func TestSaveGet(t *testing.T) {
+	l1 := todo.List{}
+	l2 := todo.List{}
+	l1.Add("New Task")
 
+	tf, err := os.CreateTemp("", "")
+	if err != nil {
+		t.Fatalf("error while creating temp file %s", err)
+	}
+	defer os.Remove(tf.Name())
+
+	if err := l1.Save(tf.Name()); err != nil {
+		t.Fatalf("Error saving list to file: %s", err)
+	}
+
+	if err := l2.Get(tf.Name()); err != nil {
+		t.Fatalf("Error getting list from file: %s", err)
+	}
+
+	if l1[0].Task != l2[0].Task {
+		t.Errorf("expected %s got %s", l1[0].Task, l2[0].Task)
+	}
 }
